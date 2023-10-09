@@ -42,15 +42,17 @@ public class OpenShulkerBoxListener implements Listener {
             ItemMeta meta = itemInMainHand.getItemMeta();
 
             Component title = meta.displayName();
+            if (title != null) {
+                Inventory inv = Bukkit.createInventory(null, 27, title);
 
-            Inventory inv = Bukkit.createInventory(null, 27, title);
-            inv.setContents(shulkerBox.getInventory().getContents());
-            player.openInventory(inv);
+                inv.setContents(shulkerBox.getInventory().getContents());
+                player.openInventory(inv);
 
-            shulkerBoxSlots.put(player.getUniqueId(), toRawSlot(player.getInventory().getHeldItemSlot()));
-            player.getWorld().playSound(player.getLocation(), Sound.BLOCK_SHULKER_BOX_OPEN, .1F, 1.0F);
+                shulkerBoxSlots.put(player.getUniqueId(), toRawSlot(player.getInventory().getHeldItemSlot()));
+                player.getWorld().playSound(player.getLocation(), Sound.BLOCK_SHULKER_BOX_OPEN, .1F, 1.0F);
 
-            event.setCancelled(true);
+                event.setCancelled(true);
+            }
         }
     }
 
