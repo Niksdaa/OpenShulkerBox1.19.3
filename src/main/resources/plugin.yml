@@ -1,0 +1,5 @@
+name: OpenShulkerBox
+version: '${project.version}'
+main: me.niksda.openshulkerbox.Main
+api-version: 1.19
+authors: [ Querz, Niksda ]
