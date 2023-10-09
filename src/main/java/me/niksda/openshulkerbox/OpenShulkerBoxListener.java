@@ -1,5 +1,6 @@
 package me.niksda.openshulkerbox;
 
+import jdk.internal.net.http.RequestPublishers;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -42,17 +43,18 @@ public class OpenShulkerBoxListener implements Listener {
             ItemMeta meta = itemInMainHand.getItemMeta();
 
             Component title = meta.displayName();
-            if (title != null) {
-                Inventory inv = Bukkit.createInventory(null, 27, title);
-
-                inv.setContents(shulkerBox.getInventory().getContents());
-                player.openInventory(inv);
-
-                shulkerBoxSlots.put(player.getUniqueId(), toRawSlot(player.getInventory().getHeldItemSlot()));
-                player.getWorld().playSound(player.getLocation(), Sound.BLOCK_SHULKER_BOX_OPEN, .1F, 1.0F);
-
-                event.setCancelled(true);
+            if (title == null){
+                title = Component.text("Shulker Box");
             }
+            Inventory inv = Bukkit.createInventory(null, 27, title);
+
+            inv.setContents(shulkerBox.getInventory().getContents());
+            player.openInventory(inv);
+
+            shulkerBoxSlots.put(player.getUniqueId(), toRawSlot(player.getInventory().getHeldItemSlot()));
+            player.getWorld().playSound(player.getLocation(), Sound.BLOCK_SHULKER_BOX_OPEN, .1F, 1.0F);
+
+            event.setCancelled(true);
         }
     }
 
